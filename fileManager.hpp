@@ -10,9 +10,10 @@ public:
   FileManager(std::string input, std::string output);
   ~FileManager();
   void reprintInputToOutput();
+  void appendLine(std::string);
 private:
   std::string inputFileName;
-  std::string outputFIleName;
+  std::string outputFileName;
   bool inputSet;
   bool outputSet;
 

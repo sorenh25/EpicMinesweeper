@@ -6,6 +6,8 @@ int main() {
 
   FileManager FileMan_(input, output);
 
+
   FileMan_.reprintInputToOutput();
+  FileMan_.appendLine("Suck my dick\n");
 
 }

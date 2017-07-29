@@ -3,10 +3,16 @@
 
 Field::Field() {
   piece_ = HIDDEN;
+  fieldCount_++;
 }
 
 Field::Field(FieldType type) {
   piece_ = type;
+  fieldCount_++;
+}
+
+Field::~Field() {
+  fieldCount_--;
 }
 
 void Field::print() {
@@ -34,6 +40,10 @@ void Field::print() {
       std::cout << '#'; break;
     case BOMB:
       std::cout << '*'; break;
+    case FLAG:
+     std::cout << 'F'; break;
+   case MAYBE:
+     std::cout << '?'; break;
 
 
 

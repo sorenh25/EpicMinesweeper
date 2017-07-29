@@ -20,7 +20,7 @@ FileManager::FileManager(std::string fileName, char flag) {
   }
 
   if (flag == 'o') {
-    outputFIleName = fileName;
+    outputFileName = fileName;
     outputSet = true;
     inputSet = false;
     return;
@@ -29,7 +29,7 @@ FileManager::FileManager(std::string fileName, char flag) {
 
 FileManager::FileManager(std::string input, std::string output) {
   inputFileName = input;
-  outputFIleName = output;
+  outputFileName = output;
   inputSet = true;
   outputSet = true;
 
@@ -46,17 +46,21 @@ void FileManager::reprintInputToOutput() {
   }
 
   std::ifstream inputFile(inputFileName);
-  std::ofstream outputFile(outputFIleName);
+  std::ofstream outputFile(outputFileName);
 
   if (!(inputFile.is_open() && outputFile.is_open())) {
     std::cout << "This is wrong\n";
     return;
   }
 
-  int fileLength_ = inputFile.gcount();
+  inputFile.seekg(0, inputFile.end); //gets the length of the input file
+  int fileLength_ = inputFile.tellg();
+  inputFile.seekg(0, inputFile.beg);
+
   char* buffer_ = new char[fileLength_];
 
-  inputFile.read(buffer_, fileLength_); // doesnt work for some reason
+  inputFile.read(buffer_, fileLength_);
+
   outputFile.write(buffer_, fileLength_);
 
   delete[] buffer_;
@@ -64,4 +68,13 @@ void FileManager::reprintInputToOutput() {
   outputFile.close();
 
 
+}
+
+void FileManager::appendLine(std::string lineToWrite_) {
+
+    std::ofstream outputFile(outputFileName, std::ofstream::app);
+
+    outputFile.write(lineToWrite_.c_str(), lineToWrite_.length());
+
+    outputFile.close();
 }
